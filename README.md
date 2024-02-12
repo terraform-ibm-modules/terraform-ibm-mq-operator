@@ -23,7 +23,6 @@ For more information about the IBM MQ operator refer to the official documentati
 ## Overview
 * [terraform-ibm-mq-operator](#terraform-ibm-mq-operator)
 * [Examples](./examples)
-    * [Basic example](./examples/basic)
     * [Complete example](./examples/complete)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
