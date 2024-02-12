@@ -13,7 +13,7 @@ Update status and "latest release" badges:
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 <!-- Add a description of module(s) in this repo -->
-Use this module to install an IBM MQ operator and create an instance of IBM MQ operator on IBM Cloud Red Hat OpenShift cluster on VPC Gen2.
+Use this module to install an IBM MQ operator on your Red Hat OpenShift Container Platform on VPC landing Zone.
 
 For more information about the IBM MQ operator refer to the official documentation available [here](https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mq-about)
 
@@ -130,8 +130,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_ibm_mq_operator_namespace"></a> [ibm\_mq\_operator\_namespace](#output\_ibm\_mq\_operator\_namespace) | Namespace where the IBM MQ operator is installed |
-| <a name="output_ibm_mq_operator_target_namespace"></a> [ibm\_mq\_operator\_target\_namespace](#output\_ibm\_mq\_operator\_target\_namespace) | Namespace watched by the IBM MQ operator |
+| <a name="output_ibm_mq_operator_namespace"></a> [ibm\_mq\_operator\_namespace](#output\_ibm\_mq\_operator\_namespace) | Namespace where the IBM MQ operator is installed. |
+| <a name="output_ibm_mq_operator_target_namespace"></a> [ibm\_mq\_operator\_target\_namespace](#output\_ibm\_mq\_operator\_target\_namespace) | Namespace watched by the IBM MQ operator. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->

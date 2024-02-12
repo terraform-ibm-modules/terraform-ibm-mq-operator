@@ -48,12 +48,10 @@ resource "helm_release" "ibm_mq_operator_group" {
   namespace        = var.operator_helm_release_namespace
   create_namespace = false
   timeout          = 300
-  # dependency_update = true
-  force_update = true
-  # force_update      = false
-  cleanup_on_fail = false
-  wait            = true
-  recreate_pods   = true
+  force_update     = true
+  cleanup_on_fail  = false
+  wait             = true
+  recreate_pods    = true
 
   disable_openapi_validation = false
 
@@ -98,12 +96,10 @@ resource "helm_release" "ibm_mq_operator" {
   namespace        = var.operator_helm_release_namespace
   create_namespace = false
   timeout          = 300
-  # dependency_update = true
-  # force_update      = false
-  force_update    = true
-  cleanup_on_fail = false
-  wait            = true
-  recreate_pods   = true
+  force_update     = true
+  cleanup_on_fail  = false
+  wait             = true
+  recreate_pods    = true
 
   disable_openapi_validation = false
 
