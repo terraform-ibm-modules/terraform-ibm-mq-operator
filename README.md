@@ -1,5 +1,5 @@
 <!-- Update the title -->
-# IBM MQ Operator on Red Hat OpenShift Container Platform Module
+# IBM MQ Operator on Red Hat OpenShift Container Platform module
 
 <!--
 Update status and "latest release" badges:
@@ -13,7 +13,7 @@ Update status and "latest release" badges:
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 <!-- Add a description of module(s) in this repo -->
-Use this module to install an IBM MQ operator on your Red Hat OpenShift Container Platform on VPC landing Zone.
+The module installs an IBM MQ operator on the existing cluster.
 
 For more information about the IBM MQ operator refer to the official documentation available [here](https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mq-about)
 
@@ -38,7 +38,7 @@ https://terraform-ibm-modules.github.io/documentation/#/implementation-guideline
 
 
 <!-- This heading should always match the name of the root level module (aka the repo name) -->
-## terraform-ibm-module-template
+## terraform-ibm-mq-operator
 
 ### Usage
 
@@ -124,9 +124,7 @@ No modules.
 | <a name="input_create_ibm_mq_operator_namespace"></a> [create\_ibm\_mq\_operator\_namespace](#input\_create\_ibm\_mq\_operator\_namespace) | Flag to create the namespace where to deploy the IBM MQ Operator. Default to false | `bool` | `false` | no |
 | <a name="input_ibm_mq_operator_namespace"></a> [ibm\_mq\_operator\_namespace](#input\_ibm\_mq\_operator\_namespace) | Namespace to install the IBM MQ Operator. Default to openshift-operators | `string` | `"openshift-operators"` | no |
 | <a name="input_ibm_mq_operator_target_namespace"></a> [ibm\_mq\_operator\_target\_namespace](#input\_ibm\_mq\_operator\_target\_namespace) | Namespace to be watched by the IBM MQ Operator. Default to null (operator to watch all namespaces) | `string` | `null` | no |
-| <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | APIkey that's associated with the account to use | `string` | `null` | no |
 | <a name="input_operator_helm_release_namespace"></a> [operator\_helm\_release\_namespace](#input\_operator\_helm\_release\_namespace) | Namespace to deploy the helm releases. Default to ibm-mq-operator helm release | `string` | `"ibm-mq-operator"` | no |
-| <a name="input_region"></a> [region](#input\_region) | Cluster region | `string` | n/a | yes |
 
 ### Outputs
 
