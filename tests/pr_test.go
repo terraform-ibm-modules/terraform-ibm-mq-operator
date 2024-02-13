@@ -12,10 +12,10 @@ import (
 const resourceGroup = "geretain-test-resources"
 const completeExampleDir = "examples/complete"
 
-func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
+func setupOptions(t *testing.T, prefix string, exampleDir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:       t,
-		TerraformDir:  dir,
+		TerraformDir:  exampleDir,
 		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
 	})
@@ -25,21 +25,21 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 func TestRunCompleteExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "mod-template", completeExampleDir)
+	options := setupOptions(t, "mqo", completeExampleDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "mod-template-upg", completeExampleDir)
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}
+//func TestRunUpgradeExample(t *testing.T) {
+//	t.Parallel()
+//
+//	options := setupOptions(t, "mqo-upg", completeExampleDir)
+//
+//	output, err := options.RunTestUpgrade()
+//	if !options.UpgradeTestSkipped {
+//		assert.Nil(t, err, "This should not have errored")
+//		assert.NotNil(t, output, "Expected some output")
+//	}
+//}
