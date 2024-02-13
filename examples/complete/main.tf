@@ -96,8 +96,6 @@ module "ocp_base" {
 
 module "ibm_mq_operator" {
   source                           = "../.."
-  region                           = var.region
   cluster_id                       = module.ocp_base.cluster_id
   create_ibm_mq_operator_namespace = false
-  ibmcloud_api_key                 = var.ibmcloud_api_key
 }
