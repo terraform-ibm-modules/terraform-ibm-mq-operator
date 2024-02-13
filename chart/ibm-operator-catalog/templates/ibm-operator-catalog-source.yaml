@@ -1,0 +1,13 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: ibm-operator-catalog
+  namespace: openshift-marketplace
+spec:
+  displayName: IBM Operator Catalog
+  publisher: IBM
+  sourceType: grpc
+  image: '{{ .Values.image.path }}:{{ required "IBM Operator catalog version must be provided" .Values.image.version }}'
+  updateStrategy:
+    registryPoll:
+      interval: 45m
