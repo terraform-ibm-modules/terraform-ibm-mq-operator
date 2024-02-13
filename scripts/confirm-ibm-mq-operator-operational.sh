@@ -27,6 +27,8 @@ done
 if [ ${fail} == true ]; then
   echo "Problem detected. Printing some debug info.."
   set +e
+  echo "Describe output of ibm-operator-catalog CatalogSource in openshift-marketplace namespace"
+  kubectl describe CatalogSource ibm-operator-catalog -n openshift-marketplace
   echo "Describe output of ibm-mq Subscription in ${namespace} namespace"
   kubectl describe Subscription ibm-mq -n "${namespace}"
   echo

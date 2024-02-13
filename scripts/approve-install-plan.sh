@@ -83,7 +83,7 @@ wait_for_operator(){
 
 namespace=$1
 
-## Wait for, and approve install plan for ibm-websphere-liberty
+## Wait for, and approve install plan for ibm-mq
 approve_install_plan "ibm-mq" "$namespace"
 
 subscription_names=( "ibm-mq" )

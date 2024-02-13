@@ -22,7 +22,7 @@ repository:
 
   # Uncomment this description property
   # and update the description to the current repo description.
-  description: "This module installs an IBM MQ operator on your Red Hat OpenShift Container Platform on VPC landing Zone."
+  description: "The module installs an IBM MQ operator on the existing cluster."
 
   # Use a comma-separated list of topics to set on the repo (ensure not to use any caps in the topic string).
   topics: terraform, ibm-cloud, terraform-module, ibm-mq-operator
