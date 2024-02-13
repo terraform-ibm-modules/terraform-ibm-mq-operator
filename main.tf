@@ -8,7 +8,7 @@ locals {
   ibm_mq_operator_chart       = "mq-operator"
   ibm_mq_operator_group_chart = "mq-operator-group"
 
-  # validation of ws_mq_operator_target_namespace - if null the value of ws_mq_operator_namespace must be equal to "openshift-operators" https://www.ibm.com/docs/en/ibm-mq/9.3?topic=imo-installing-mq-operator-using-red-hat-openshift-cli
+  # validation of ibm_mq_operator_target_namespace - if null the value of ibm_mq_operator_namespace must be equal to "openshift-operators" https://www.ibm.com/docs/en/ibm-mq/9.3?topic=imo-installing-mq-operator-using-red-hat-openshift-cli
   default_ibm_mq_operator_namespace = "openshift-operators"
   operator_target_namespace_cnd     = var.ibm_mq_operator_target_namespace == null && var.ibm_mq_operator_namespace != local.default_ibm_mq_operator_namespace
   operator_target_namespace_msg     = "if input var ibm_mq_operator_target_namespace is null the value of ibm_mq_operator_namespace must be equal to ${local.default_ibm_mq_operator_namespace}"

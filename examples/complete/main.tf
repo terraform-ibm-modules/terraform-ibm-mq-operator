@@ -23,7 +23,7 @@ resource "ibm_is_vpc" "vpc" {
 
 # public gws
 resource "ibm_is_public_gateway" "gateway" {
-  for_each       = toset(["1", "2", "3"])
+  for_each       = toset(["1", "2"])
   name           = "${var.prefix}-gateway-${each.key}"
   vpc            = ibm_is_vpc.vpc.id
   resource_group = module.resource_group.resource_group_id
@@ -32,7 +32,7 @@ resource "ibm_is_public_gateway" "gateway" {
 
 
 resource "ibm_is_subnet" "cluster_subnets" {
-  for_each                 = toset(["1", "2", "3"])
+  for_each                 = toset(["1", "2"])
   name                     = "${var.prefix}-subnet-${each.key}"
   vpc                      = ibm_is_vpc.vpc.id
   resource_group           = module.resource_group.resource_group_id

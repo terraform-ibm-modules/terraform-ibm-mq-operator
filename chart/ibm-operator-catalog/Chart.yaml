@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ibm-operator-catalog
-description: A Helm chart to configure the Operator Catalog source for the IBM operator catalog
+description: A Helm chart to configure the IBM Operator Catalog source
 type: application
 
 # This is the chart version. This version number should be incremented each time you make changes
