@@ -19,6 +19,7 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
+const completeExampleDir = "examples/complete"
 
 func setupOptions(t *testing.T, prefix string, exampleDir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
@@ -29,6 +30,28 @@ func setupOptions(t *testing.T, prefix string, exampleDir string) *testhelper.Te
 	})
 	return options
 }
+
+func TestRunCompleteExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "mqo", completeExampleDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+//func TestRunUpgradeExample(t *testing.T) {
+//	t.Parallel()
+//
+//	options := setupOptions(t, "mqo-upg", completeExampleDir)
+//
+//	output, err := options.RunTestUpgrade()
+//	if !options.UpgradeTestSkipped {
+//		assert.Nil(t, err, "This should not have errored")
+//		assert.NotNil(t, output, "Expected some output")
+//	}
+//}
 
 func TestRunSLZExample(t *testing.T) {
 	t.Parallel()
