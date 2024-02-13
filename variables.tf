@@ -28,6 +28,12 @@ variable "operator_helm_release_namespace" {
   nullable    = false
 }
 
+variable "add_ibm_operator_catalog" {
+  type        = bool
+  description = "Flag to configure the IBM Operator Catalog in the cluster before installing the IBM MQ Operator. Default is true"
+  default     = true
+}
+
 variable "create_ibm_mq_operator_namespace" {
   type        = bool
   description = "Flag to create the namespace where to deploy the IBM MQ Operator. Default to false"

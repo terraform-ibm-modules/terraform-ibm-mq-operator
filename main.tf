@@ -1,10 +1,12 @@
 locals {
   # sleep times definition
+  sleep_time_catalog_create  = "60s"
   sleep_time_operator_create = "120s"
 
   # helm chart names
-  ibm_mq_operator_chart       = "ibm-mq-operator"
-  ibm_mq_operator_group_chart = "ibm-mq-operator-group"
+  ibm_operator_catalog_chart  = "ibm-operator-catalog"
+  ibm_mq_operator_chart       = "mq-operator"
+  ibm_mq_operator_group_chart = "mq-operator-group"
 
   # validation of ws_mq_operator_target_namespace - if null the value of ws_mq_operator_namespace must be equal to "openshift-operators" https://www.ibm.com/docs/en/ibm-mq/9.3?topic=imo-installing-mq-operator-using-red-hat-openshift-cli
   default_ibm_mq_operator_namespace = "openshift-operators"
@@ -38,10 +40,51 @@ resource "kubernetes_namespace" "helm_release_operator_namespace" {
   }
 }
 
+locals {
+  ibm_operator_catalog_version = "v1.25-20240202.161709-9DAF3E648@sha256:92e28be4af60f68c656f52b2445aafcc052fcd0390479b868c5b0ba2d465a25a" # datasource: icr.io/cpopen/ibm-operator-catalog
+  ibm_operator_catalog_path    = "icr.io/cpopen/ibm-operator-catalog"
+}
+
+# if add_ibm_operator_catalog is true going on with adding the IBM Operator Catalog source
+resource "helm_release" "ibm_operator_catalog" {
+  depends_on       = [kubernetes_namespace.helm_release_operator_namespace]
+  count            = var.add_ibm_operator_catalog == true ? 1 : 0
+  name             = "ibm-operator-catalog-helm-release"
+  chart            = "${path.module}/chart/${local.ibm_operator_catalog_chart}"
+  namespace        = var.operator_helm_release_namespace
+  create_namespace = false
+  timeout          = 300
+  force_update     = true
+  cleanup_on_fail  = false
+  wait             = true
+  recreate_pods    = true
+
+  disable_openapi_validation = false
+
+  set {
+    name  = "image.path"
+    type  = "string"
+    value = local.ibm_operator_catalog_path
+  }
+  set {
+    name  = "image.version"
+    type  = "string"
+    value = local.ibm_operator_catalog_version
+  }
+}
+
+# waiting for the catalog to be configured and correctly pulled
+resource "time_sleep" "wait_catalog" {
+  depends_on = [helm_release.ibm_operator_catalog[0]]
+  count      = var.add_ibm_operator_catalog == true ? 1 : 0
+
+  create_duration = local.sleep_time_catalog_create
+}
+
 # if ws_mq_operator_target_namespace != null the operator group must be created
 resource "helm_release" "ibm_mq_operator_group" {
   count      = var.ibm_mq_operator_target_namespace != null ? 1 : 0
-  depends_on = [kubernetes_namespace.helm_release_operator_namespace]
+  depends_on = [time_sleep.wait_catalog[0], kubernetes_namespace.helm_release_operator_namespace]
 
   name             = "ibm-mq-operator-group-helm-release"
   chart            = "${path.module}/chart/${local.ibm_mq_operator_group_chart}"
@@ -89,7 +132,7 @@ resource "kubernetes_namespace" "ibm_mq_operator_namespace" {
 }
 
 resource "helm_release" "ibm_mq_operator" {
-  depends_on = [helm_release.ibm_mq_operator_group[0], kubernetes_namespace.ibm_mq_operator_namespace[0]]
+  depends_on = [time_sleep.wait_catalog[0], helm_release.ibm_mq_operator_group[0], kubernetes_namespace.ibm_mq_operator_namespace[0]]
 
   name             = "ibm-mq-operator-helm-release"
   chart            = "${path.module}/chart/${local.ibm_mq_operator_chart}"
