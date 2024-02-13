@@ -1,15 +1,3 @@
-variable "ibmcloud_api_key" {
-  type        = string
-  description = "APIkey associated with the account to use."
-  sensitive   = true
-}
-
-variable "region" {
-  type        = string
-  description = "Region to provision all resources created by this solution"
-  nullable    = false
-}
-
 variable "cluster_id" {
   type        = string
   description = "Id of the target IBM Cloud OpenShift Cluster."
@@ -20,6 +8,12 @@ variable "operator_helm_release_namespace" {
   type        = string
   description = "Namespace to deploy the helm releases. Default to ibm-mq-operator."
   default     = "ibm-mq-operator"
+}
+
+variable "add_ibm_operator_catalog" {
+  type        = bool
+  description = "Flag to configure the IBM Operator Catalog in the cluster before installing the IBM MQ Operator. Default is true."
+  default     = true
 }
 
 variable "create_ibm_mq_operator_namespace" {
