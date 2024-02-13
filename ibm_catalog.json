@@ -1,0 +1,110 @@
+{
+  "products": [
+    {
+      "name": "deploy-arch-ibm-slz-mq-operator",
+      "label": "MQ operator add-on for the landing zone",
+      "product_kind": "solution",
+      "tags": [
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "reference_architecture",
+        "solution"
+      ],
+      "keywords": [
+        "vpc",
+        "slz",
+        "IaC",
+        "infrastructure as code",
+        "terraform",
+        "solution",
+        "MQ",
+        "Operator",
+        "ibm mq operator",
+        "mq operator"
+      ],
+      "short_description": "Installs the IBM MQ operator on the landing zone (SLZ).",
+      "long_description": "Installs the IBM MQ operator on the landing zone (SLZ).",
+      "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-mq-operator/blob/main/README.md",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-mq-operator/main/images/mq.svg",
+      "provider_name": "IBM",
+      "features": [
+        {
+          "description": "Supports configuring the marketplace Catalog Source for the IBM Operators catalog on existing cluster.",
+          "title": "Configures Catalog Source for the IBM Operators catalog on existing cluster."
+        },
+        {
+          "description": "Supports configuring the Operator Group for the IBM MQ Operator on existing cluster.",
+          "title": "Configures the Operator Group for the IBM MQ Operator on existing cluster."
+        },
+        {
+          "description": "Supports installing the IBM MQ Operator on existing cluster.",
+          "title": "Installs the IBM MQ Operator on existing cluster."
+        }
+      ],
+      "flavors": [
+        {
+          "label": "Standard",
+          "name": "standard",
+          "install_type": "extension",
+          "working_directory": "extensions/landing-zone",
+          "dependencies": [
+            {
+              "flavors": [
+                "standard"
+              ],
+              "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
+              "name": "deploy-arch-ibm-slz-ocp",
+              "version": "v5.1.1-rc"
+            }
+          ],
+          "configuration": [
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true
+            }
+          ],
+          "architecture": {
+            "descriptions": "",
+            "features": [
+              {
+                "title": "Works with the landing zone",
+                "description": "Yes"
+              },
+              {
+                "title": "Installs catalog source the IBM Operator catalog on the existing cluster",
+                "description": "Yes"
+              },
+              {
+                "title": "Supports configuring the Operator Group for the IBM MQ Operator on existing cluster",
+                "description": "Yes"
+              },
+              {
+                "title": "Supports installing the IBM MQ Operator on existing cluster",
+                "description": "Yes"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "IBM MQ installation on a landing zone VPC cluster.",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-mq-operator/main/reference-architecture/ibm_mq_operator.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "IBM MQ operator installation on a landing zone VPC cluster."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
