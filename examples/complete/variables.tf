@@ -13,6 +13,7 @@ variable "prefix" {
 variable "region" {
   type        = string
   description = "Region to provision all resources created by this example."
+  default     = "au-syd"
 }
 
 variable "ocp_version" {
