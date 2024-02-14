@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+offerings:
+  - name: deploy-arch-ibm-slz-mq-operator
+    kind: solution
+    catalog_id: 7df1e4ca-d54c-4fd0-82ce-3d13247308cd
+    offering_id: e46e5212-5c94-4bea-95d8-863755949bc5
+    variations:
+      - name: standard
+        mark_ready: false
+        install_type: extension
+        pre_validation: "tests/scripts/pre-validation-slz-roks.sh"
+        post_validation: "tests/scripts/post-validation-slz-roks.sh"
