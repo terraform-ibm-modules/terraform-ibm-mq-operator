@@ -1,3 +1,15 @@
+variable "ibmcloud_api_key" {
+  type        = string
+  description = "APIkey associated with the account to use"
+  sensitive   = true
+}
+
+variable "region" {
+  type        = string
+  description = "Region to provision all resources created by this solution"
+  default     = "au-syd"
+}
+
 variable "cluster_id" {
   type        = string
   description = "Id of the target IBM Cloud OpenShift Cluster."
