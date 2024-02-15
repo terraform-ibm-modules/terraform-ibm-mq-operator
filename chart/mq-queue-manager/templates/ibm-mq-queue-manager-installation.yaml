@@ -14,6 +14,6 @@ spec:
     storage:
       queueManager:
         type: persistent-claim
-  version: 9.3.4.1-r1
+  version: 9.3.3.3-r1
   web:
     enabled: true
