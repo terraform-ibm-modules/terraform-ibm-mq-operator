@@ -1,0 +1,19 @@
+kind: QueueManager
+apiVersion: mq.ibm.com/v1beta1
+metadata:
+  annotations:
+    com.ibm.mq/write-defaults-spec: 'false'
+  name: {{ .Values.queuemanagername }}
+  namespace: {{ .Values.queuemanagernamespace }}
+spec:
+  license:
+    accept: true
+    license: L-AXAF-JLZ53A
+    use: Development
+  queueManager:
+    storage:
+      queueManager:
+        type: persistent-claim
+  version: 9.3.4.1-r1
+  web:
+    enabled: true

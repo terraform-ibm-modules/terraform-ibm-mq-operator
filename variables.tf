@@ -21,9 +21,33 @@ variable "add_ibm_operator_catalog" {
   default     = true
 }
 
+variable "create_queue_manager" {
+  type        = bool
+  description = "Flag to create a Queue Manager for the IBM MQ operator. Default is true."
+  default     = true
+}
+
+variable "queue_manager_name" {
+  type        = string
+  description = "Name of the IBM MQ Queue Manager. Default to mq-qm."
+  default     = "mq-qm"
+}
+
+variable "create_ibm_mq_queue_manager_namespace" {
+  type        = bool
+  description = "Flag to create the namespace where to create the IBM MQ Queue Manager. Default to true."
+  default     = true
+}
+
+variable "ibm_mq_queue_manager_namespace" {
+  type        = string
+  description = "Namespace to install the IBM MQ Queue Manager. Default to mq-qm-ns."
+  default     = "mq-qm-ns"
+}
+
 variable "create_ibm_mq_operator_namespace" {
   type        = bool
-  description = "Flag to create the namespace where to deploy the IBM MQ Operator. Default to false"
+  description = "Flag to create the namespace where to deploy the IBM MQ Operator. Default to false."
   default     = false
 }
 
