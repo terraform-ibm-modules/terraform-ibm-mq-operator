@@ -234,12 +234,6 @@ resource "helm_release" "ibm_mq_queue_manager" {
   }
 
   set {
-    name  = "queuemanagersecret"
-    type  = "string"
-    value = "mq-queue-manager-secret"
-  }
-
-  set {
     name  = "queuemanagername"
     type  = "string"
     value = var.queue_manager_name
