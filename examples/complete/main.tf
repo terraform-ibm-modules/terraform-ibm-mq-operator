@@ -96,6 +96,6 @@ module "ocp_base" {
 
 module "ibm_mq_operator" {
   source                           = "../.."
-  cluster_id                       = "cn6ablhd0nfgdt36a3ig"
+  cluster_id                       = module.ocp_base.cluster_id
   create_ibm_mq_operator_namespace = false
 }
