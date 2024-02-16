@@ -8,12 +8,12 @@ metadata:
 spec:
   license:
     accept: true
-    license: L-AXAF-JLZ53A
-    use: Development
+    license: {{ .Values.queuemanagerlicense }}
+    use: {{ .Values.queuemanagerlicenseusage }}
   queueManager:
     storage:
       queueManager:
         type: persistent-claim
-  version: 9.3.3.3-r1
+  version: {{ .Values.queuemanagerversion }}
   web:
     enabled: true

@@ -46,6 +46,24 @@ variable "ibm_mq_queue_manager_namespace" {
   default     = "mq-qm-ns"
 }
 
+variable "queue_manager_license" {
+  type        = string
+  description = "IBM MQ Queue Manager license. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference."
+  default     = "L-AXAF-JLZ53A"
+}
+
+variable "queue_manager_license_usage" {
+  type        = string
+  description = "IBM MQ Queue Manager license usage. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference."
+  default     = "Development"
+}
+
+variable "queue_manager_version" {
+  type        = string
+  description = "IBM MQ Queue Manager version."
+  default     = "9.3.3.3-r1"
+}
+
 variable "add_ibm_operator_catalog" {
   type        = bool
   description = "Flag to configure the IBM Operator Catalog in the cluster before installing the IBM MQ Operator. Default is true."

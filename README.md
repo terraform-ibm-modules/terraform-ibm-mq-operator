@@ -133,7 +133,10 @@ No modules.
 | <a name="input_ibm_mq_operator_target_namespace"></a> [ibm\_mq\_operator\_target\_namespace](#input\_ibm\_mq\_operator\_target\_namespace) | Namespace to be watched by the IBM MQ Operator. Default to null (operator to watch all namespaces) | `string` | `null` | no |
 | <a name="input_ibm_mq_queue_manager_namespace"></a> [ibm\_mq\_queue\_manager\_namespace](#input\_ibm\_mq\_queue\_manager\_namespace) | Namespace to install the IBM MQ Queue Manager. Default to mq-qm-ns. | `string` | `"mq-qm-ns"` | no |
 | <a name="input_operator_helm_release_namespace"></a> [operator\_helm\_release\_namespace](#input\_operator\_helm\_release\_namespace) | Namespace to deploy the helm releases. Default to ibm-mq-operator helm release | `string` | `"ibm-mq-operator"` | no |
+| <a name="input_queue_manager_license"></a> [queue\_manager\_license](#input\_queue\_manager\_license) | IBM MQ Queue Manager license. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference. | `string` | `"L-AXAF-JLZ53A"` | no |
+| <a name="input_queue_manager_license_usage"></a> [queue\_manager\_license\_usage](#input\_queue\_manager\_license\_usage) | IBM MQ Queue Manager license usage. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference. | `string` | `"Development"` | no |
 | <a name="input_queue_manager_name"></a> [queue\_manager\_name](#input\_queue\_manager\_name) | Name of the IBM MQ Queue Manager. Default to mq-qm. | `string` | `"mq-qm"` | no |
+| <a name="input_queue_manager_version"></a> [queue\_manager\_version](#input\_queue\_manager\_version) | IBM MQ Queue Manager version. | `string` | `"9.3.3.3-r1"` | no |
 
 ### Outputs
 

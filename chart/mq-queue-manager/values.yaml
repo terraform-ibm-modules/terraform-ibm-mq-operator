@@ -3,3 +3,6 @@
 
 queuemanagernamespace: mq-qm-ns
 queuemanagername: mq-qm
+queuemanagerlicense: L-AXAF-JLZ53A
+queuemanagerlicenseusage: Development
+queuemanagerversion: 9.3.3.3-r1

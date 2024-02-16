@@ -211,7 +211,7 @@ resource "kubernetes_namespace" "ibm_mq_queue_manager_namespace" {
 }
 
 resource "helm_release" "ibm_mq_queue_manager" {
-  depends_on = [time_sleep.wait_catalog[0], helm_release.ibm_mq_operator, kubernetes_namespace.ibm_mq_queue_manager_namespace[0]]
+  depends_on = [helm_release.ibm_mq_operator, kubernetes_namespace.ibm_mq_queue_manager_namespace[0]]
 
   count = var.create_queue_manager == true ? 1 : 0
 
@@ -237,6 +237,24 @@ resource "helm_release" "ibm_mq_queue_manager" {
     name  = "queuemanagername"
     type  = "string"
     value = var.queue_manager_name
+  }
+
+  set {
+    name  = "queuemanagerlicense"
+    type  = "string"
+    value = var.queue_manager_license
+  }
+
+  set {
+    name  = "queuemanagerlicenseusage"
+    type  = "string"
+    value = var.queue_manager_license_usage
+  }
+
+  set {
+    name  = "queuemanagerversion"
+    type  = "string"
+    value = var.queue_manager_version
   }
 }
 

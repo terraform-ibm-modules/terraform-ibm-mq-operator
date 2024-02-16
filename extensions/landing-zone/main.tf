@@ -21,8 +21,11 @@ module "ibm_mq_operator" {
   ibm_mq_queue_manager_namespace        = var.ibm_mq_queue_manager_namespace
   create_queue_manager                  = var.create_queue_manager
   queue_manager_name                    = var.queue_manager_name
+  queue_manager_license                 = var.queue_manager_license
+  queue_manager_license_usage           = var.queue_manager_license_usage
+  queue_manager_version                 = var.queue_manager_version
 }
 
 locals {
-  mq_queue_manager_web_url = "https://${module.ibm_mq_operator.ibm_mq_queue_manager_web_url}/ibmmq/console/login.html"
+  mq_queue_manager_web_url = var.create_queue_manager ? "https://${module.ibm_mq_operator.ibm_mq_queue_manager_web_url}/ibmmq/console/login.html" : "MQ Queue Manager is not deployed."
 }
