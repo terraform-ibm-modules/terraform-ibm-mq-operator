@@ -193,17 +193,17 @@ module "landing_zone" {
     {
       "create": true,
       "name": "mqo-service-rg",
-      "use_prefix": false
+      "use_prefix": true
     },
     {
       "create": true,
       "name": "mqo-management-rg",
-      "use_prefix": false
+      "use_prefix": true
     },
     {
       "create": true,
       "name": "mqo-workload-rg",
-      "use_prefix": false
+      "use_prefix": true
     }
   ],
   "secrets_manager": {
