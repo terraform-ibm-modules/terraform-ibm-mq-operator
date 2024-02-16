@@ -90,6 +90,7 @@ statement instead the previous block.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0, <1.6.0 |
+| <a name="requirement_external"></a> [external](#requirement\_external) | >=2.2.3, <3.0.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.8.0, <3.0.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.59.0, < 2.0.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.16.1, <3.0.0 |
@@ -106,12 +107,16 @@ No modules.
 |------|------|
 | [helm_release.ibm_mq_operator](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.ibm_mq_operator_group](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.ibm_mq_queue_manager](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.ibm_operator_catalog](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubernetes_namespace.helm_release_operator_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_namespace.ibm_mq_operator_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
+| [kubernetes_namespace.ibm_mq_queue_manager_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [null_resource.confirm_ibm_mq_operator_operational](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [time_sleep.wait_catalog](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [time_sleep.wait_ibm_mq_operator](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [time_sleep.wait_ibm_mq_queue_manager](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [external_external.mq_queue_manager_url](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 | [ibm_container_cluster_config.cluster_config](https://registry.terraform.io/providers/ibm-cloud/ibm/latest/docs/data-sources/container_cluster_config) | data source |
 
 ### Inputs
@@ -121,10 +126,17 @@ No modules.
 | <a name="input_add_ibm_operator_catalog"></a> [add\_ibm\_operator\_catalog](#input\_add\_ibm\_operator\_catalog) | Flag to configure the IBM Operator Catalog in the cluster before installing the IBM MQ Operator. Default is true | `bool` | `true` | no |
 | <a name="input_cluster_config_endpoint_type"></a> [cluster\_config\_endpoint\_type](#input\_cluster\_config\_endpoint\_type) | Specify which type of endpoint to use for for cluster config access: 'default', 'private', 'vpe', 'link'. 'default' value will use the default endpoint of the cluster. | `string` | `"default"` | no |
 | <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | Id of the target IBM Cloud OpenShift Cluster | `string` | n/a | yes |
-| <a name="input_create_ibm_mq_operator_namespace"></a> [create\_ibm\_mq\_operator\_namespace](#input\_create\_ibm\_mq\_operator\_namespace) | Flag to create the namespace where to deploy the IBM MQ Operator. Default to false | `bool` | `false` | no |
+| <a name="input_create_ibm_mq_operator_namespace"></a> [create\_ibm\_mq\_operator\_namespace](#input\_create\_ibm\_mq\_operator\_namespace) | Flag to create the namespace where to deploy the IBM MQ Operator. Default to false. | `bool` | `false` | no |
+| <a name="input_create_ibm_mq_queue_manager_namespace"></a> [create\_ibm\_mq\_queue\_manager\_namespace](#input\_create\_ibm\_mq\_queue\_manager\_namespace) | Flag to create the namespace where to create the IBM MQ Queue Manager. Default to true. | `bool` | `true` | no |
+| <a name="input_create_queue_manager"></a> [create\_queue\_manager](#input\_create\_queue\_manager) | Flag to create a Queue Manager for the IBM MQ operator. Default is true. | `bool` | `true` | no |
 | <a name="input_ibm_mq_operator_namespace"></a> [ibm\_mq\_operator\_namespace](#input\_ibm\_mq\_operator\_namespace) | Namespace to install the IBM MQ Operator. Default to openshift-operators | `string` | `"openshift-operators"` | no |
 | <a name="input_ibm_mq_operator_target_namespace"></a> [ibm\_mq\_operator\_target\_namespace](#input\_ibm\_mq\_operator\_target\_namespace) | Namespace to be watched by the IBM MQ Operator. Default to null (operator to watch all namespaces) | `string` | `null` | no |
+| <a name="input_ibm_mq_queue_manager_namespace"></a> [ibm\_mq\_queue\_manager\_namespace](#input\_ibm\_mq\_queue\_manager\_namespace) | Namespace to install the IBM MQ Queue Manager. Default to mq-qm-ns. | `string` | `"mq-qm-ns"` | no |
 | <a name="input_operator_helm_release_namespace"></a> [operator\_helm\_release\_namespace](#input\_operator\_helm\_release\_namespace) | Namespace to deploy the helm releases. Default to ibm-mq-operator helm release | `string` | `"ibm-mq-operator"` | no |
+| <a name="input_queue_manager_license"></a> [queue\_manager\_license](#input\_queue\_manager\_license) | IBM MQ Queue Manager license. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference. | `string` | `"L-AXAF-JLZ53A"` | no |
+| <a name="input_queue_manager_license_usage"></a> [queue\_manager\_license\_usage](#input\_queue\_manager\_license\_usage) | IBM MQ Queue Manager license usage. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference. | `string` | `"Development"` | no |
+| <a name="input_queue_manager_name"></a> [queue\_manager\_name](#input\_queue\_manager\_name) | Name of the IBM MQ Queue Manager. Default to mq-qm. | `string` | `"mq-qm"` | no |
+| <a name="input_queue_manager_version"></a> [queue\_manager\_version](#input\_queue\_manager\_version) | IBM MQ Queue Manager version. | `string` | `"9.3.3.3-r1"` | no |
 
 ### Outputs
 
@@ -132,6 +144,7 @@ No modules.
 |------|-------------|
 | <a name="output_ibm_mq_operator_namespace"></a> [ibm\_mq\_operator\_namespace](#output\_ibm\_mq\_operator\_namespace) | Namespace where the IBM MQ operator is installed. |
 | <a name="output_ibm_mq_operator_target_namespace"></a> [ibm\_mq\_operator\_target\_namespace](#output\_ibm\_mq\_operator\_target\_namespace) | Namespace watched by the IBM MQ operator. |
+| <a name="output_ibm_mq_queue_manager_web_url"></a> [ibm\_mq\_queue\_manager\_web\_url](#output\_ibm\_mq\_queue\_manager\_web\_url) | Queue Manager web URL |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->

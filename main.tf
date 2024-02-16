@@ -1,12 +1,14 @@
 locals {
   # sleep times definition
-  sleep_time_catalog_create  = "60s"
-  sleep_time_operator_create = "120s"
+  sleep_time_catalog_create       = "60s"
+  sleep_time_operator_create      = "120s"
+  sleep_time_queue_manager_create = "120s"
 
   # helm chart names
   ibm_operator_catalog_chart  = "ibm-operator-catalog"
   ibm_mq_operator_chart       = "mq-operator"
   ibm_mq_operator_group_chart = "mq-operator-group"
+  ibm_mq_queue_manager_chart  = "mq-queue-manager"
 
   # validation of ibm_mq_operator_target_namespace - if null the value of ibm_mq_operator_namespace must be equal to "openshift-operators" https://www.ibm.com/docs/en/ibm-mq/9.3?topic=imo-installing-mq-operator-using-red-hat-openshift-cli
   default_ibm_mq_operator_namespace = "openshift-operators"
@@ -14,6 +16,7 @@ locals {
   operator_target_namespace_msg     = "if input var ibm_mq_operator_target_namespace is null the value of ibm_mq_operator_namespace must be equal to ${local.default_ibm_mq_operator_namespace}"
   # tflint-ignore: terraform_unused_declarations
   operator_target_namespace_chk = regex("^${local.operator_target_namespace_msg}$", (!local.operator_target_namespace_cnd ? local.operator_target_namespace_msg : ""))
+
 }
 
 data "ibm_container_cluster_config" "cluster_config" {
@@ -181,5 +184,92 @@ resource "null_resource" "confirm_ibm_mq_operator_operational" {
     environment = {
       KUBECONFIG = data.ibm_container_cluster_config.cluster_config.config_file_path
     }
+  }
+}
+
+##############################################################################
+# Queue Manager
+##############################################################################
+
+resource "kubernetes_namespace" "ibm_mq_queue_manager_namespace" {
+  count = var.create_ibm_mq_queue_manager_namespace == true ? 1 : 0
+
+  metadata {
+    name = var.ibm_mq_queue_manager_namespace
+  }
+
+  timeouts {
+    delete = "30m"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      metadata[0].annotations,
+      metadata[0].labels
+    ]
+  }
+}
+
+resource "helm_release" "ibm_mq_queue_manager" {
+  depends_on = [helm_release.ibm_mq_operator, kubernetes_namespace.ibm_mq_queue_manager_namespace[0]]
+
+  count = var.create_queue_manager == true ? 1 : 0
+
+  name             = "ibm-mq-queue-manager-helm-release"
+  chart            = "${path.module}/chart/${local.ibm_mq_queue_manager_chart}"
+  namespace        = var.operator_helm_release_namespace
+  create_namespace = false
+  timeout          = 300
+  force_update     = true
+  cleanup_on_fail  = false
+  wait             = true
+  recreate_pods    = true
+
+  disable_openapi_validation = false
+
+  set {
+    name  = "queuemanagernamespace"
+    type  = "string"
+    value = var.ibm_mq_queue_manager_namespace
+  }
+
+  set {
+    name  = "queuemanagername"
+    type  = "string"
+    value = var.queue_manager_name
+  }
+
+  set {
+    name  = "queuemanagerlicense"
+    type  = "string"
+    value = var.queue_manager_license
+  }
+
+  set {
+    name  = "queuemanagerlicenseusage"
+    type  = "string"
+    value = var.queue_manager_license_usage
+  }
+
+  set {
+    name  = "queuemanagerversion"
+    type  = "string"
+    value = var.queue_manager_version
+  }
+}
+
+resource "time_sleep" "wait_ibm_mq_queue_manager" {
+  depends_on = [helm_release.ibm_mq_queue_manager[0]]
+
+  create_duration = local.sleep_time_queue_manager_create
+}
+
+data "external" "mq_queue_manager_url" {
+  depends_on = [time_sleep.wait_ibm_mq_queue_manager]
+  program    = ["/bin/bash", "${path.module}/scripts/get-mq-queue-manager-web-url.sh"]
+  query = {
+    KUBECONFIG              = data.ibm_container_cluster_config.cluster_config.config_file_path
+    MQQUEUEMANAGERNAME      = var.queue_manager_name
+    MQQUEUEMANAGERNAMESPACE = var.ibm_mq_queue_manager_namespace
   }
 }

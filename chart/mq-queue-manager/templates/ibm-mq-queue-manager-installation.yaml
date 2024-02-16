@@ -1,0 +1,19 @@
+kind: QueueManager
+apiVersion: mq.ibm.com/v1beta1
+metadata:
+  annotations:
+    com.ibm.mq/write-defaults-spec: 'false'
+  name: {{ .Values.queuemanagername }}
+  namespace: {{ .Values.queuemanagernamespace }}
+spec:
+  license:
+    accept: true
+    license: {{ .Values.queuemanagerlicense }}
+    use: {{ .Values.queuemanagerlicenseusage }}
+  queueManager:
+    storage:
+      queueManager:
+        type: persistent-claim
+  version: {{ .Values.queuemanagerversion }}
+  web:
+    enabled: true
