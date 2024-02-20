@@ -4,13 +4,13 @@
 
 variable "cluster_id" {
   type        = string
-  description = "Id of the target IBM Cloud OpenShift Cluster"
+  description = "Id of the target IBM Cloud OpenShift Cluster."
   nullable    = false
 }
 
 variable "operator_helm_release_namespace" {
   type        = string
-  description = "Namespace to deploy the helm releases. Default to ibm-mq-operator helm release"
+  description = "Namespace to deploy the helm releases. Default to ibm-mq-operator helm release."
   default     = "ibm-mq-operator"
   nullable    = false
 }
@@ -71,14 +71,14 @@ variable "create_ibm_mq_operator_namespace" {
 
 variable "ibm_mq_operator_namespace" {
   type        = string
-  description = "Namespace to install the IBM MQ Operator. Default to openshift-operators"
+  description = "Namespace where the IBM MQ operator is deployed. Default is 'openshift-operators'."
   default     = "openshift-operators"
   nullable    = false
 }
 
 variable "ibm_mq_operator_target_namespace" {
   type        = string
-  description = "Namespace to be watched by the IBM MQ Operator. Default to null (operator to watch all namespaces)"
+  description = "Namespace that the IBM MQ Operator watches. Default to null (operator to watch all namespaces)"
   default     = null
 }
 

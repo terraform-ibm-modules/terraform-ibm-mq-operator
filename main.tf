@@ -84,7 +84,7 @@ resource "time_sleep" "wait_catalog" {
   create_duration = local.sleep_time_catalog_create
 }
 
-# if ws_mq_operator_target_namespace != null the operator group must be created
+# if ibm_mq_operator_target_namespace != null the operator group must be created
 resource "helm_release" "ibm_mq_operator_group" {
   count      = var.ibm_mq_operator_target_namespace != null ? 1 : 0
   depends_on = [time_sleep.wait_catalog[0], kubernetes_namespace.helm_release_operator_namespace]

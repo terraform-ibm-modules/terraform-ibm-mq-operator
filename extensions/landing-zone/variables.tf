@@ -6,13 +6,13 @@ variable "ibmcloud_api_key" {
 
 variable "region" {
   type        = string
-  description = "Region to provision all resources created by this solution"
-  default     = "au-syd"
+  description = "Region where the target cluster is deployed."
+  nullable    = false
 }
 
 variable "cluster_id" {
   type        = string
-  description = "Id of the target IBM Cloud OpenShift Cluster."
+  description = "Id of the target cluster."
   nullable    = false
 }
 
@@ -84,7 +84,7 @@ variable "ibm_mq_operator_namespace" {
 
 variable "ibm_mq_operator_target_namespace" {
   type        = string
-  description = "Namespace to be watched by the IBM MQ Operator. Default to null (operator to watch all namespaces)."
+  description = "Namespace to be watched by the IBM MQ Operator. Default is 'null', which means that the operator watches all the namespaces."
   default     = null
 }
 
