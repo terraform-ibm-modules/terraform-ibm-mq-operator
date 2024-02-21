@@ -95,7 +95,9 @@ module "ocp_base" {
 ##############################################################################
 
 module "ibm_mq_operator" {
-  source                           = "../.."
-  cluster_id                       = module.ocp_base.cluster_id
-  create_ibm_mq_operator_namespace = false
+  source                      = "../.."
+  cluster_id                  = module.ocp_base.cluster_id
+  create_queue_manager        = true
+  queue_manager_license       = var.queue_manager_license
+  queue_manager_license_usage = var.queue_manager_license_usage
 }

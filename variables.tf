@@ -4,57 +4,57 @@
 
 variable "cluster_id" {
   type        = string
-  description = "Id of the target IBM Cloud OpenShift Cluster."
+  description = "ID of the target cluster where the IBM MQ operator will be installed."
   nullable    = false
 }
 
 variable "operator_helm_release_namespace" {
   type        = string
-  description = "Namespace to deploy the helm releases. Default to ibm-mq-operator helm release."
+  description = "Namespace where the helm releases are deployed. Default is `ibm-mq-operator`."
   default     = "ibm-mq-operator"
   nullable    = false
 }
 
 variable "add_ibm_operator_catalog" {
   type        = bool
-  description = "Flag to configure the IBM Operator Catalog in the cluster before installing the IBM MQ Operator. Default is true"
+  description = "Configure the IBM Operator Catalog in the cluster before installing the IBM MQ Operator. Default is `true`."
   default     = true
 }
 
 variable "create_queue_manager" {
   type        = bool
-  description = "Flag to create a Queue Manager for the IBM MQ operator. Default is true."
+  description = "Set to true to create a Queue Manager for the IBM MQ operator. Default is `true`."
   default     = true
 }
 
 variable "queue_manager_name" {
   type        = string
-  description = "Name of the IBM MQ Queue Manager. Default to mq-qm."
+  description = "Name of the IBM MQ Queue Manager. Default to `mq-qm`."
   default     = "mq-qm"
 }
 
 variable "create_ibm_mq_queue_manager_namespace" {
   type        = bool
-  description = "Flag to create the namespace where to create the IBM MQ Queue Manager. Default to true."
+  description = "Set to true to create the namespace where the IBM MQ Queue Manager will be installed. Default to `true`."
   default     = true
 }
 
 variable "ibm_mq_queue_manager_namespace" {
   type        = string
-  description = "Namespace to install the IBM MQ Queue Manager. Default to mq-qm-ns."
+  description = "Namespace where the IBM MQ Queue Manager will be installed. Default to `mq-qm-ns`."
   default     = "mq-qm-ns"
 }
 
 variable "queue_manager_license" {
   type        = string
   description = "IBM MQ Queue Manager license. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference."
-  default     = "L-AXAF-JLZ53A"
+  default     = null
 }
 
 variable "queue_manager_license_usage" {
   type        = string
   description = "IBM MQ Queue Manager license usage. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference."
-  default     = "Development"
+  default     = null
 }
 
 variable "queue_manager_version" {
@@ -65,20 +65,20 @@ variable "queue_manager_version" {
 
 variable "create_ibm_mq_operator_namespace" {
   type        = bool
-  description = "Flag to create the namespace where to deploy the IBM MQ Operator. Default to false."
+  description = "Set to true to create the namespace where the IBM MQ Operator will be deployed. Default to `false`."
   default     = false
 }
 
 variable "ibm_mq_operator_namespace" {
   type        = string
-  description = "Namespace where the IBM MQ operator is deployed. Default is 'openshift-operators'."
+  description = "Namespace where the IBM MQ operator is deployed. Default is `openshift-operators`."
   default     = "openshift-operators"
   nullable    = false
 }
 
 variable "ibm_mq_operator_target_namespace" {
   type        = string
-  description = "Namespace that the IBM MQ Operator watches. Default to null (operator to watch all namespaces)"
+  description = "Namespace to be watched by the IBM MQ Operator. Default is `null`, which means that the operator watches all the namespaces."
   default     = null
 }
 

@@ -16,7 +16,6 @@ locals {
   operator_target_namespace_msg     = "if input var ibm_mq_operator_target_namespace is null the value of ibm_mq_operator_namespace must be equal to ${local.default_ibm_mq_operator_namespace}"
   # tflint-ignore: terraform_unused_declarations
   operator_target_namespace_chk = regex("^${local.operator_target_namespace_msg}$", (!local.operator_target_namespace_cnd ? local.operator_target_namespace_msg : ""))
-
 }
 
 data "ibm_container_cluster_config" "cluster_config" {
