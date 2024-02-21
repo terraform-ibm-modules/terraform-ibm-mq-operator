@@ -136,7 +136,7 @@ No modules.
 | <a name="input_queue_manager_license"></a> [queue\_manager\_license](#input\_queue\_manager\_license) | IBM MQ Queue Manager license. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference. | `string` | `null` | no |
 | <a name="input_queue_manager_license_usage"></a> [queue\_manager\_license\_usage](#input\_queue\_manager\_license\_usage) | IBM MQ Queue Manager license usage. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference. | `string` | `null` | no |
 | <a name="input_queue_manager_name"></a> [queue\_manager\_name](#input\_queue\_manager\_name) | Name of the IBM MQ Queue Manager. Default to `mq-qm`. | `string` | `"mq-qm"` | no |
-| <a name="input_queue_manager_version"></a> [queue\_manager\_version](#input\_queue\_manager\_version) | IBM MQ Queue Manager version. | `string` | `"9.3.3.3-r1"` | no |
+| <a name="input_queue_manager_version"></a> [queue\_manager\_version](#input\_queue\_manager\_version) | IBM MQ Queue Manager version. Make sure the version is compatible with the IBM MQ Queue Manager license and usage. | `string` | `"9.3.3.3-r1"` | no |
 
 ### Outputs
 

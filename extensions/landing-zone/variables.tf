@@ -58,7 +58,7 @@ variable "queue_manager_license_usage" {
 
 variable "queue_manager_version" {
   type        = string
-  description = "IBM MQ Queue Manager version."
+  description = "IBM MQ Queue Manager version. Make sure the version is compatible with the IBM MQ Queue Manager license and usage."
   default     = "9.3.3.3-r1"
 }
 
