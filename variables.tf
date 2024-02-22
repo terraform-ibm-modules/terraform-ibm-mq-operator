@@ -17,7 +17,7 @@ variable "operator_helm_release_namespace" {
 
 variable "add_ibm_operator_catalog" {
   type        = bool
-  description = "Configure the IBM Operator Catalog in the cluster before installing the IBM MQ Operator. Default is `true`."
+  description = "Install the IBM Operator Catalog in the cluster before installing the IBM MQ Operator. Default is `true`."
   default     = true
 }
 
@@ -29,8 +29,8 @@ variable "create_queue_manager" {
 
 variable "queue_manager_name" {
   type        = string
-  description = "Name of the IBM MQ Queue Manager. Default to `mq-qm`."
-  default     = "mq-qm"
+  description = "Name of the IBM MQ Queue Manager."
+  default     = null
 }
 
 variable "create_ibm_mq_queue_manager_namespace" {
@@ -41,8 +41,8 @@ variable "create_ibm_mq_queue_manager_namespace" {
 
 variable "ibm_mq_queue_manager_namespace" {
   type        = string
-  description = "Namespace where the IBM MQ Queue Manager will be installed. Default to `mq-qm-ns`."
-  default     = "mq-qm-ns"
+  description = "Namespace where the IBM MQ Queue Manager will be installed. Its only used when `var.create_ibm_mq_queue_manager_namespace` is set to true."
+  default     = null
 }
 
 variable "queue_manager_license" {
