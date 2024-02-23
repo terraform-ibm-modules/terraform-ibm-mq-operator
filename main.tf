@@ -17,6 +17,23 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   operator_target_namespace_chk = regex("^${local.operator_target_namespace_msg}$", (!local.operator_target_namespace_cnd ? local.operator_target_namespace_msg : ""))
 
+  # tflint-ignore: terraform_unused_declarations
+  validate_queue_manager_name = var.create_queue_manager && var.queue_manager_name == null ? tobool("if var.create_queue_manager is true then var.queue_manager_name must not be null.") : true
+
+  # tflint-ignore: terraform_unused_declarations
+  validate_queue_manager_license = var.create_queue_manager && var.queue_manager_license == null ? tobool("if var.create_queue_manager is true then var.queue_manager_license must not be null.") : true
+
+  # tflint-ignore: terraform_unused_declarations
+  validate_queue_manager_license_usage = var.create_queue_manager && var.queue_manager_license_usage == null ? tobool("if var.create_queue_manager is true then var.queue_manager_license_usage must not be null.") : true
+
+  # tflint-ignore: terraform_unused_declarations
+  validate_queue_manager_version = var.create_queue_manager && var.queue_manager_version == null ? tobool("if var.create_queue_manager is true then var.queue_manager_version must not be null.") : true
+
+  # tflint-ignore: terraform_unused_declarations
+  validate_create_ibm_mq_queue_manager_namespace = var.create_ibm_mq_queue_manager_namespace && !var.create_queue_manager ? tobool("if var.create_ibm_mq_queue_manager_namespace is true then var.create_queue_manager has to be true as well.") : true
+
+  # tflint-ignore: terraform_unused_declarations
+  validate_ibm_mq_queue_manager_namespace = var.create_ibm_mq_queue_manager_namespace && var.ibm_mq_queue_manager_namespace == null ? tobool("if var.create_ibm_mq_queue_manager_namespace is true then var.ibm_mq_queue_manager_namespace must not be null.") : true
 }
 
 data "ibm_container_cluster_config" "cluster_config" {
@@ -84,7 +101,7 @@ resource "time_sleep" "wait_catalog" {
   create_duration = local.sleep_time_catalog_create
 }
 
-# if ws_mq_operator_target_namespace != null the operator group must be created
+# if ibm_mq_operator_target_namespace != null the operator group must be created
 resource "helm_release" "ibm_mq_operator_group" {
   count      = var.ibm_mq_operator_target_namespace != null ? 1 : 0
   depends_on = [time_sleep.wait_catalog[0], kubernetes_namespace.helm_release_operator_namespace]

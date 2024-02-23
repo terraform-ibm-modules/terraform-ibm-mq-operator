@@ -33,3 +33,13 @@ variable "resource_tags" {
   description = "Optional list of tags to be added to created resources."
   default     = []
 }
+
+variable "queue_manager_license" {
+  type        = string
+  description = "IBM MQ Queue Manager license. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference."
+}
+
+variable "queue_manager_license_usage" {
+  type        = string
+  description = "IBM MQ Queue Manager license usage. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference."
+}

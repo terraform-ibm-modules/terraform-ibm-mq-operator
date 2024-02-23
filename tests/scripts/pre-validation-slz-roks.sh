@@ -36,7 +36,7 @@ TF_VARS_FILE="terraform.tfvars"
         --arg region_var_value "${REGION}" \
         --arg cluster_id_var_name "${cluster_id_var_name}" \
         --arg cluster_id_value "${cluster_id_value}" \
-        '. + {($region_var_name): $region_var_value}, ($cluster_id_var_name): $cluster_id_value' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
+        '. + {($region_var_name): $region_var_value, ($cluster_id_var_name): $cluster_id_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
 
   echo "Pre-validation complete successfully"
 )

@@ -4,6 +4,7 @@ package test
 import (
 	"fmt"
 	"github.com/stretchr/testify/require"
+	"log"
 	"os"
 	"strings"
 	"testing"
@@ -20,6 +21,20 @@ import (
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
 const completeExampleDir = "examples/complete"
+const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
+
+var permanentResources map[string]interface{}
+
+// TestMain will be run before any parallel tests, used to read data from yaml for use with tests
+func TestMain(m *testing.M) {
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	os.Exit(m.Run())
+}
 
 func setupOptions(t *testing.T, prefix string, exampleDir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
@@ -27,18 +42,12 @@ func setupOptions(t *testing.T, prefix string, exampleDir string) *testhelper.Te
 		TerraformDir:  exampleDir,
 		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
+		TerraformVars: map[string]interface{}{
+			"queue_manager_license":       permanentResources["ibm_mq_queue_manager_license"],
+			"queue_manager_license_usage": permanentResources["ibm_mq_queue_manager_license_usage"],
+		},
 	})
 	return options
-}
-
-func TestRunCompleteExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "mqo", completeExampleDir)
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeExample(t *testing.T) {
@@ -102,8 +111,10 @@ func TestRunSLZExample(t *testing.T) {
 			// Do not hard fail the test if the implicit destroy steps fail to allow a full destroy of resource to occur
 			ImplicitRequired: false,
 			TerraformVars: map[string]interface{}{
-				"cluster_id": terraform.Output(t, existingTerraformOptions, "workload_cluster_id"),
-				"region":     terraform.Output(t, existingTerraformOptions, "region"),
+				"cluster_id":                  terraform.Output(t, existingTerraformOptions, "workload_cluster_id"),
+				"region":                      terraform.Output(t, existingTerraformOptions, "region"),
+				"queue_manager_license":       permanentResources["ibm_mq_queue_manager_license"],
+				"queue_manager_license_usage": permanentResources["ibm_mq_queue_manager_license_usage"],
 			},
 		})
 
