@@ -1,5 +1,5 @@
 {
-  "ibmcloud_api_key": $VALIDATION_APIKEY
-  "queue_manager_license": $QUEUE_MANAGER_LICENSE
+  "ibmcloud_api_key": $VALIDATION_APIKEY,
+  "queue_manager_license": $QUEUE_MANAGER_LICENSE,
   "queue_manager_license_usage": $QUEUE_MANAGER_LICENSE_USAGE
 }
