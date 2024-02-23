@@ -111,8 +111,10 @@ func TestRunSLZExample(t *testing.T) {
 			// Do not hard fail the test if the implicit destroy steps fail to allow a full destroy of resource to occur
 			ImplicitRequired: false,
 			TerraformVars: map[string]interface{}{
-				"cluster_id": terraform.Output(t, existingTerraformOptions, "workload_cluster_id"),
-				"region":     terraform.Output(t, existingTerraformOptions, "region"),
+				"cluster_id":                  terraform.Output(t, existingTerraformOptions, "workload_cluster_id"),
+				"region":                      terraform.Output(t, existingTerraformOptions, "region"),
+				"queue_manager_license":       permanentResources["ibm_mq_queue_manager_license"],
+				"queue_manager_license_usage": permanentResources["ibm_mq_queue_manager_license_usage"],
 			},
 		})
 
