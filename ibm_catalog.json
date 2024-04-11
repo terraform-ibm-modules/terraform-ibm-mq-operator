@@ -8,7 +8,7 @@
         "ibm_created",
         "target_terraform",
         "terraform",
-        "reference_architecture",
+        "integration",
         "solution"
       ],
       "keywords": [
