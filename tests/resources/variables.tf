@@ -15,3 +15,9 @@ variable "prefix" {
   description = "Prefix to append to all resources created by this example"
   default     = "mq-slz"
 }
+
+variable "resource_tags" {
+  type        = list(string)
+  description = "Optional list of tags to be added to created resources"
+  default     = []
+}

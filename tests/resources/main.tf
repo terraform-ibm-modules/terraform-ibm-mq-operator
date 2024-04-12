@@ -7,4 +7,5 @@ module "landing_zone" {
   ibmcloud_api_key = var.ibmcloud_api_key
   region           = var.region
   prefix           = var.prefix
+  resource_tags    = var.resource_tags
 }
