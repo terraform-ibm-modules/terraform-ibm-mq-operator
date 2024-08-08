@@ -73,20 +73,19 @@ locals {
 }
 
 module "ocp_base" {
-  depends_on                          = [ibm_is_vpc.vpc, ibm_is_subnet.cluster_subnets, ibm_is_public_gateway.gateway]
-  source                              = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                             = "3.29.1"
-  cluster_name                        = "${var.prefix}-cluster"
-  cos_name                            = "${var.prefix}-cos"
-  resource_group_id                   = module.resource_group.resource_group_id
-  region                              = var.region
-  force_delete_storage                = true
-  vpc_id                              = ibm_is_vpc.vpc.id
-  vpc_subnets                         = local.cluster_vpc_subnets
-  worker_pools                        = local.worker_pools
-  tags                                = var.resource_tags
-  ocp_version                         = var.ocp_version
-  disable_outbound_traffic_protection = true
+  depends_on           = [ibm_is_vpc.vpc, ibm_is_subnet.cluster_subnets, ibm_is_public_gateway.gateway]
+  source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
+  version              = "3.29.1"
+  cluster_name         = "${var.prefix}-cluster"
+  cos_name             = "${var.prefix}-cos"
+  resource_group_id    = module.resource_group.resource_group_id
+  region               = var.region
+  force_delete_storage = true
+  vpc_id               = ibm_is_vpc.vpc.id
+  vpc_subnets          = local.cluster_vpc_subnets
+  worker_pools         = local.worker_pools
+  tags                 = var.resource_tags
+  ocp_version          = var.ocp_version
 }
 
 
