@@ -75,7 +75,7 @@ locals {
 module "ocp_base" {
   depends_on           = [ibm_is_vpc.vpc, ibm_is_subnet.cluster_subnets, ibm_is_public_gateway.gateway]
   source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.29.1"
+  version              = "3.29.2"
   cluster_name         = "${var.prefix}-cluster"
   cos_name             = "${var.prefix}-cos"
   resource_group_id    = module.resource_group.resource_group_id
