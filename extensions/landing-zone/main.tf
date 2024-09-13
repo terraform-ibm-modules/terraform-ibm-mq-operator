@@ -1,5 +1,5 @@
 ##############################################################################
-# IBM WebSphere Liberty operator deployment on the OCP cluster
+# IBM MQ operator deployment on the OCP cluster
 ##############################################################################
 
 data "ibm_container_cluster_config" "cluster_config" {

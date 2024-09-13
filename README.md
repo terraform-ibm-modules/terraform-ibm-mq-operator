@@ -51,6 +51,65 @@ unless real values don't help users know what to change.
 
 ```hcl
 
+##############################################################################
+# Config providers
+##############################################################################
+
+provider "ibm" {
+  ibmcloud_api_key = var.ibmcloud_api_key # pragma: allowlist secret
+  region           = var.region
+}
+
+provider "helm" {
+  kubernetes {
+    host  = data.ibm_container_cluster_config.cluster_config.host
+    token = data.ibm_container_cluster_config.cluster_config.token
+  }
+}
+
+provider "kubernetes" {
+  host  = data.ibm_container_cluster_config.cluster_config.host
+  token = data.ibm_container_cluster_config.cluster_config.token
+}
+
+##############################################################################
+# IBM MQ operator deployment on the OCP cluster
+##############################################################################
+
+data "ibm_container_cluster_config" "cluster_config" {
+  cluster_name_id = var.cluster_id
+  config_dir      = "${path.module}/kubeconfig"
+  endpoint_type   = var.cluster_config_endpoint_type != "default" ? var.cluster_config_endpoint_type : null # null represents default
+}
+
+module "ibm_mq_operator" {
+  # Replace "master" with a GIT release version to lock into a specific release
+  source                                = "https://github.com/terraform-ibm-modules/terraform-ibm-mq-operator.git?ref=master"
+  cluster_id                            = var.cluster_id
+  add_ibm_operator_catalog              = true
+  create_ibm_mq_operator_namespace      = false
+  ibm_mq_operator_namespace             = "openshift-operators"
+  ibm_mq_operator_target_namespace      = "ibm-mq-operator"
+  cluster_config_endpoint_type          = "default"
+  operator_helm_release_namespace       = "ibm-mq-operator"
+  create_ibm_mq_queue_manager_namespace = true
+  ibm_mq_queue_manager_namespace        = "ibm-mq-operator-qm"
+  create_queue_manager                  = var.create_queue_manager
+  queue_manager_name                    = "ibm-mq-operator-qm"
+  queue_manager_license                 = var.queue_manager_license
+  queue_manager_license_usage           = var.queue_manager_license_usage
+  queue_manager_version                 = var.queue_manager_version
+}
+
+locals {
+  mq_queue_manager_web_url = var.create_queue_manager ? "https://${module.ibm_mq_operator.ibm_mq_queue_manager_web_url}/ibmmq/console/login.html" : "MQ Queue Manager is not deployed."
+}
+
+output "ibm_mq_queue_manager_web_url" {
+  description = "Queue Manager web URL"
+  value       = local.mq_queue_manager_web_url
+}
+
 ```
 
 ### Required IAM access policies
@@ -63,17 +122,10 @@ information in the console at
 Manage > Access (IAM) > Access groups > Access policies.
 -->
 
-<!--
-You need the following permissions to run this module.
-
-- Account Management
-    - **Sample Account Service** service
-        - `Editor` platform access
-        - `Manager` service access
-    - IAM Services
-        - **Sample Cloud Service** service
-            - `Administrator` platform access
--->
+- IAM Services
+  - **Kubernetes** service
+      - `Viewer` platform access
+      - `Manager` service access
 
 <!-- NO PERMISSIONS FOR MODULE
 If no permissions are required for the module, uncomment the following
