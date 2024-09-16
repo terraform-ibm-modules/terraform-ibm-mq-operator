@@ -109,7 +109,6 @@ output "ibm_mq_queue_manager_web_url" {
   description = "Queue Manager web URL"
   value       = local.mq_queue_manager_web_url
 }
-
 ```
 
 ### Required IAM access policies
