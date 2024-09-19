@@ -51,11 +51,12 @@
           "dependencies": [
             {
               "flavors": [
-                "standard"
+                "quickstart"
               ],
               "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
               "name": "deploy-arch-ibm-slz-ocp",
-              "version": "v5.1.1-rc"
+              "version": ">=v5.20.0",
+              "optional": true
             }
           ],
           "configuration": [
