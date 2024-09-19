@@ -117,6 +117,12 @@ func TestRunSLZExample(t *testing.T) {
 			TerraformDir: "extensions/landing-zone",
 			// Do not hard fail the test if the implicit destroy steps fail to allow a full destroy of resource to occur
 			ImplicitRequired: false,
+			ImplicitDestroy: []string{
+				// workaround for the issue https://github.ibm.com/GoldenEye/issues/issues/10743
+				// when the issue is fixed on IKS, so the destruction of default workers pool is correctly managed on provider/clusters service the next two entries should be removed
+				"module.ocp_base.ibm_container_vpc_worker_pool.autoscaling_pool[\"default\"]",
+				"module.ocp_base.ibm_container_vpc_worker_pool.pool[\"default\"]",
+			},
 			TerraformVars: map[string]interface{}{
 				"cluster_id":                  terraform.Output(t, existingTerraformOptions, "workload_cluster_id"),
 				"region":                      terraform.Output(t, existingTerraformOptions, "region"),
