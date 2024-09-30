@@ -15,7 +15,9 @@ Update status and "latest release" badges:
 <!-- Add a description of module(s) in this repo -->
 The module installs an IBM MQ operator on the existing cluster.
 
-For more information about the IBM MQ operator refer to the official documentation available [here](https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mq-about)
+For more information about the IBM MQ operator refer to the official documentation available [here](https://www.ibm.com/docs/en/ibm-mq/9.3?topic=integration-using-mq-operator)
+
+For more information about the IBM MQ refer to the official documentation available [here](https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mq-about)
 
 
 <!-- Below content is automatically populated via pre-commit hook -->
