@@ -50,8 +50,8 @@ func setupOptions(t *testing.T, prefix string, exampleDir string) *testhelper.Te
 		ImplicitDestroy: []string{
 			// workaround for the issue https://github.ibm.com/GoldenEye/issues/issues/10743
 			// when the issue is fixed on IKS, so the destruction of default workers pool is correctly managed on provider/clusters service the next two entries should be removed
-			"module.ocp_base.ibm_container_vpc_worker_pool.autoscaling_pool[\"default\"]",
-			"module.ocp_base.ibm_container_vpc_worker_pool.pool[\"default\"]",
+			"'module.ocp_base.ibm_container_vpc_worker_pool.autoscaling_pool[\"default\"]'",
+			"'module.ocp_base.ibm_container_vpc_worker_pool.pool[\"default\"]'",
 		},
 	})
 	return options
@@ -120,8 +120,8 @@ func TestRunSLZExample(t *testing.T) {
 			ImplicitDestroy: []string{
 				// workaround for the issue https://github.ibm.com/GoldenEye/issues/issues/10743
 				// when the issue is fixed on IKS, so the destruction of default workers pool is correctly managed on provider/clusters service the next two entries should be removed
-				"module.ocp_base.ibm_container_vpc_worker_pool.autoscaling_pool[\"default\"]",
-				"module.ocp_base.ibm_container_vpc_worker_pool.pool[\"default\"]",
+				"'module.ocp_base.ibm_container_vpc_worker_pool.autoscaling_pool[\"default\"]'",
+				"'module.ocp_base.ibm_container_vpc_worker_pool.pool[\"default\"]'",
 			},
 			TerraformVars: map[string]interface{}{
 				"cluster_id":                  terraform.Output(t, existingTerraformOptions, "workload_cluster_id"),
