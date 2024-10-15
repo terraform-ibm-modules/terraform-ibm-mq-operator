@@ -68,6 +68,7 @@ locals {
       machine_type     = "bx2.4x16"
       workers_per_zone = 1
       labels           = {}
+      operating_system = "REDHAT_8_64"
     }
   ]
 }
@@ -75,7 +76,7 @@ locals {
 module "ocp_base" {
   depends_on           = [ibm_is_vpc.vpc, ibm_is_subnet.cluster_subnets, ibm_is_public_gateway.gateway]
   source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.32.1"
+  version              = "3.33.0"
   cluster_name         = "${var.prefix}-cluster"
   cos_name             = "${var.prefix}-cos"
   resource_group_id    = module.resource_group.resource_group_id
