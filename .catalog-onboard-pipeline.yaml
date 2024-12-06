@@ -8,6 +8,6 @@ offerings:
     variations:
       - name: standard
         mark_ready: true
-        install_type: extension
+        install_type: fullstack
         pre_validation: "tests/scripts/pre-validation-slz-roks.sh"
         post_validation: "tests/scripts/post-validation-slz-roks.sh"
