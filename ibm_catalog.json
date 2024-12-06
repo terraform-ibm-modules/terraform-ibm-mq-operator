@@ -46,7 +46,7 @@
         {
           "label": "Standard",
           "name": "standard",
-          "install_type": "extension",
+          "install_type": "fullstack",
           "working_directory": "extensions/landing-zone",
           "dependency_version_2": true,
           "dependencies": [
