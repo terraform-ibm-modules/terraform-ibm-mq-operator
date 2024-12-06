@@ -48,6 +48,7 @@
           "name": "standard",
           "install_type": "extension",
           "working_directory": "extensions/landing-zone",
+          "dependency_version_2": true,
           "dependencies": [
             {
               "flavors": [
