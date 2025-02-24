@@ -62,6 +62,9 @@
           ],
           "configuration": [
             {
+              "key": "ibmcloud_api_key"
+            },
+            {
               "custom_config": {
                 "config_constraints": {
                   "generationType": "2"
@@ -72,6 +75,48 @@
               },
               "key": "region",
               "required": true
+            },
+            {
+              "key": "add_ibm_operator_catalog"
+            },
+            {
+              "key": "cluster_config_endpoint_type"
+            },
+            {
+              "key": "cluster_id"
+            },
+            {
+              "key": "create_ibm_mq_operator_namespace"
+            },
+            {
+              "key": "create_ibm_mq_queue_manager_namespace"
+            },
+            {
+              "key": "create_queue_manager"
+            },
+            {
+              "key": "ibm_mq_operator_namespace"
+            },
+            {
+              "key": "ibm_mq_operator_target_namespace"
+            },
+            {
+              "key": "ibm_mq_queue_manager_namespace"
+            },
+            {
+              "key": "operator_helm_release_namespace"
+            },
+            {
+              "key": "queue_manager_license"
+            },
+            {
+              "key": "queue_manager_license_usage"
+            },
+            {
+              "key": "queue_manager_name"
+            },
+            {
+              "key": "queue_manager_version"
             }
           ],
           "architecture": {
