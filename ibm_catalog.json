@@ -120,7 +120,6 @@
             }
           ],
           "architecture": {
-            "descriptions": "",
             "features": [
               {
                 "title": "Works with the landing zone",
