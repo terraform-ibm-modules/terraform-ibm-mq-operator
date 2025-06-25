@@ -31,36 +31,66 @@ variable "queue_manager_name" {
   type        = string
   description = "Name of the IBM MQ Queue Manager."
   default     = null
+
+  validation {
+    condition     = !var.create_queue_manager || var.queue_manager_name != null
+    error_message = "If create_queue_manager is true, then queue_manager_name must not be null."
+  }
 }
 
 variable "create_ibm_mq_queue_manager_namespace" {
   type        = bool
   description = "Set to true to create the namespace where the IBM MQ Queue Manager will be installed. Default to `true`."
   default     = true
+
+  validation {
+    condition     = !var.create_ibm_mq_queue_manager_namespace || var.create_queue_manager
+    error_message = "If create_ibm_mq_queue_manager_namespace is true, then create_queue_manager must also be true."
+  }
 }
 
 variable "ibm_mq_queue_manager_namespace" {
   type        = string
   description = "Namespace where the IBM MQ Queue Manager will be installed. Its only used when `var.create_ibm_mq_queue_manager_namespace` is set to true."
   default     = null
+
+  validation {
+    condition     = !var.create_ibm_mq_queue_manager_namespace || var.ibm_mq_queue_manager_namespace != null
+    error_message = "If create_ibm_mq_queue_manager_namespace is true, then ibm_mq_queue_manager_namespace must not be null."
+  }
 }
 
 variable "queue_manager_license" {
   type        = string
   description = "IBM MQ Queue Manager license. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference."
   default     = null
+
+  validation {
+    condition     = !var.create_queue_manager || var.queue_manager_license != null
+    error_message = "If create_queue_manager is true, then queue_manager_license must not be null."
+  }
 }
 
 variable "queue_manager_license_usage" {
   type        = string
   description = "IBM MQ Queue Manager license usage. More info on IBM MQ Queue Manager licenses and its usage can be seen here: https://www.ibm.com/docs/en/ibm-mq/9.3?topic=mqibmcomv1beta1-licensing-reference."
   default     = null
+
+  validation {
+    condition     = !var.create_queue_manager || var.queue_manager_license_usage != null
+    error_message = "If create_queue_manager is true, then queue_manager_license_usage must not be null."
+  }
 }
 
 variable "queue_manager_version" {
   type        = string
   description = "IBM MQ Queue Manager version. Make sure the version is compatible with the IBM MQ Queue Manager license and usage."
   default     = "9.3.3.3-r1"
+
+  validation {
+    condition     = !var.create_queue_manager || var.queue_manager_version != null
+    error_message = "If create_queue_manager is true, then queue_manager_version must not be null."
+  }
 }
 
 variable "create_ibm_mq_operator_namespace" {
@@ -74,6 +104,14 @@ variable "ibm_mq_operator_namespace" {
   description = "Namespace where the IBM MQ operator is deployed. Default is `openshift-operators`."
   default     = "openshift-operators"
   nullable    = false
+
+  validation {
+    condition = (
+      var.ibm_mq_operator_target_namespace != null ||
+      var.ibm_mq_operator_namespace == "openshift-operators"
+    )
+    error_message = "If ibm_mq_operator_target_namespace is null, then ibm_mq_operator_namespace must be equal to 'openshift-operators'."
+  }
 }
 
 variable "ibm_mq_operator_target_namespace" {

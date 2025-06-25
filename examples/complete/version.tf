@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.3.0"
+  required_version = ">= 1.9.0"
   required_providers {
     # Pin to the lowest provider version of the range defined in the main module to ensure lowest version still works
     # OCP all inclusive requires 1.56.1, so breaking pin to lowest provider version. Note: PR tests include multiple-control-plans which is pinned
