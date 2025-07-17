@@ -8,8 +8,9 @@
         "ibm_created",
         "target_terraform",
         "terraform",
+        "solution",
         "integration",
-        "solution"
+        "converged_infra"
       ],
       "keywords": [
         "vpc",
