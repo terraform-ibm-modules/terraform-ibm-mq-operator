@@ -40,7 +40,7 @@ spec:
             defaultMode: 0777
       containers:
         - name: wslo-uninstall-hook-job
-          image: "icr.io/goldeneye_images/ubi9-cluster-tools:stable"
+          image: "icr.io/goldeneye_images/ubi10-cluster-tools:stable"
           # Deliberately always pull to grab latest image at the time when uninstall hook executed,
           # which may be a long time (multi months) after chart was deployed
           imagePullPolicy: Always
