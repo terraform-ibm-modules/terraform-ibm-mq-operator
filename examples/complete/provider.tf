@@ -16,7 +16,7 @@ data "ibm_container_cluster_config" "cluster_config" {
 
 # Helm provider used to deploy cluster-proxy and observability agents
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     host  = data.ibm_container_cluster_config.cluster_config.host
     token = data.ibm_container_cluster_config.cluster_config.token
   }
