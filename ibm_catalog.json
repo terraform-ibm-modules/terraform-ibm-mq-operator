@@ -149,7 +149,8 @@
                 "description": "IBM MQ operator installation on a landing zone VPC cluster."
               }
             ]
-          }
+          },
+          "terraform_version": "1.10.5"
         }
       ]
     }
