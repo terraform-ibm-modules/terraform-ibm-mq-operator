@@ -57,16 +57,18 @@ resource "helm_release" "ibm_operator_catalog" {
 
   disable_openapi_validation = false
 
-  set {
-    name  = "image.path"
-    type  = "string"
-    value = local.ibm_operator_catalog_path
-  }
-  set {
-    name  = "image.version"
-    type  = "string"
-    value = local.ibm_operator_catalog_version
-  }
+  set = [
+    {
+      name  = "image.path"
+      type  = "string"
+      value = local.ibm_operator_catalog_path
+    },
+    {
+      name  = "image.version"
+      type  = "string"
+      value = local.ibm_operator_catalog_version
+    }
+  ]
 }
 
 # waiting for the catalog to be configured and correctly pulled
@@ -94,17 +96,18 @@ resource "helm_release" "ibm_mq_operator_group" {
 
   disable_openapi_validation = false
 
-  set {
-    name  = "operatornamespace"
-    type  = "string"
-    value = var.ibm_mq_operator_namespace
-  }
-
-  set {
-    name  = "operatortargetnamespace"
-    type  = "string"
-    value = var.ibm_mq_operator_target_namespace
-  }
+  set = [
+    {
+      name  = "operatornamespace"
+      type  = "string"
+      value = var.ibm_mq_operator_namespace
+    },
+    {
+      name  = "operatortargetnamespace"
+      type  = "string"
+      value = var.ibm_mq_operator_target_namespace
+    }
+  ]
 
 }
 
@@ -142,11 +145,11 @@ resource "helm_release" "ibm_mq_operator" {
 
   disable_openapi_validation = false
 
-  set {
+  set = [{
     name  = "operatornamespace"
     type  = "string"
     value = var.ibm_mq_operator_namespace
-  }
+  }]
 
   provisioner "local-exec" {
     command     = "${path.module}/scripts/approve-install-plan.sh ${var.ibm_mq_operator_namespace}"
@@ -220,35 +223,33 @@ resource "helm_release" "ibm_mq_queue_manager" {
 
   disable_openapi_validation = false
 
-  set {
-    name  = "queuemanagernamespace"
-    type  = "string"
-    value = var.ibm_mq_queue_manager_namespace
-  }
-
-  set {
-    name  = "queuemanagername"
-    type  = "string"
-    value = var.queue_manager_name
-  }
-
-  set {
-    name  = "queuemanagerlicense"
-    type  = "string"
-    value = var.queue_manager_license
-  }
-
-  set {
-    name  = "queuemanagerlicenseusage"
-    type  = "string"
-    value = var.queue_manager_license_usage
-  }
-
-  set {
-    name  = "queuemanagerversion"
-    type  = "string"
-    value = var.queue_manager_version
-  }
+  set = [
+    {
+      name  = "queuemanagernamespace"
+      type  = "string"
+      value = var.ibm_mq_queue_manager_namespace
+    },
+    {
+      name  = "queuemanagername"
+      type  = "string"
+      value = var.queue_manager_name
+    },
+    {
+      name  = "queuemanagerlicense"
+      type  = "string"
+      value = var.queue_manager_license
+    },
+    {
+      name  = "queuemanagerlicenseusage"
+      type  = "string"
+      value = var.queue_manager_license_usage
+    },
+    {
+      name  = "queuemanagerversion"
+      type  = "string"
+      value = var.queue_manager_version
+    }
+  ]
 }
 
 resource "time_sleep" "wait_ibm_mq_queue_manager" {
